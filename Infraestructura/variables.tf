@@ -3,13 +3,7 @@ variable "aws_region" {
     default = "us-east-2"
 }
 
-variable "credentials_acces_key" {
-  default = "AKIAZ5T37QTGHF7OZWCZ"
-}
 
-variable "credentials_secret_key" {
-    default = "BiIEhHEg5wajKAYU+okeXhvufNLOBRnz7SShw5FS"
-}
 
 variable "ami_id" {
     default = "ami-0f57b4cec24530068"
