@@ -3,10 +3,13 @@ variable "aws_region" {
     default = "us-east-2"
 }
 
-
+variable "aws_region_subnet_1" {
+    type    = string
+    default = "us-east-2a"
+}
 
 variable "ami_id" {
-    default = "ami-0f57b4cec24530068"
+    default = "ami-00399ec92321828f5"
 }
 
 variable "count_instances"{
