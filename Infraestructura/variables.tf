@@ -8,6 +8,11 @@ variable "aws_region_subnet_1" {
     default = "us-east-2a"
 }
 
+
+variable "automation_vpc_id" {
+  default = "vpc-061a6528eea17003b"
+}
+
 variable "ami_id" {
     default = "ami-00399ec92321828f5"
 }
