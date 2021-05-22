@@ -11,3 +11,8 @@ terraform {
 provider "aws" {
   region = var.aws_region
 }
+
+
+data "aws_vpc" "automation-vpc" {
+  id = var.automation_vpc_id
+}

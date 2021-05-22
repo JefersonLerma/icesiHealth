@@ -1,17 +1,10 @@
 ##########################################
 ## Resource to create a EC2 ##
 ##########################################
-resource "aws_vpc" "vpc_jenkins" {
-    cidr_block = "10.0.0.0/16"
-    instance_tenancy = "default"    
-    tags = {
-        Name = "vpc_jenkins"
-    }
-}
 
 resource "aws_subnet" "jenkins_public_subnet_1" {
-    vpc_id = "${aws_vpc.vpc_jenkins.id}"
-    cidr_block = "10.0.1.0/24"
+    vpc_id = var.automation_vpc_id
+    cidr_block = "10.0.0.0/24"
     map_public_ip_on_launch = "true" 
     availability_zone = var.aws_region_subnet_1
     tags = {
@@ -20,7 +13,7 @@ resource "aws_subnet" "jenkins_public_subnet_1" {
 }
 
 resource "aws_security_group" "sg_infraestructure" {
-    vpc_id = "${aws_vpc.vpc_jenkins.id}"
+    vpc_id = var.automation_vpc_id
     name = "sg_infraestructure"
     description = var.sg_infraestructure_description
 
