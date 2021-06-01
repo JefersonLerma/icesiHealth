@@ -1,0 +1,53 @@
+pipeline {
+	agent any
+	environment {
+		dockerImageFrontend = ''
+		dockerImageBackend = ''
+		registryFrontend = 'ahadeo/frontend:21.5.2021'
+		registryBackend = 'ahadeo/backend:21.5.2021'
+		registryCredential = 'dockerHubLerma'
+	}
+	stages {
+		stage('Checkout') {
+			steps {
+				checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sebastianRebolledo/IcesiHelath']]])
+			}
+		}
+		stage('Buid Docker Image Frontend') {
+			steps {
+				dir('frontend'){
+					script {
+						dockerImageFrontend = docker.build registryFrontend
+					}
+				}
+			}
+		}
+		stage('Buid Docker Image Backend') {
+			steps {
+				dir('backend'){
+					script {
+						dockerImageBackend = docker.build registryBackend
+					}
+				}
+			}
+		}
+		stage ('Uploading Image Frontend') {
+			steps {
+				script {
+					docker.withRegistry('', registryCredential){
+						dockerImageFrontend.push()
+					}
+				}
+			}
+		}
+		stage ('Uploading Image Backend') {
+			steps {
+				script {
+					docker.withRegistry('', registryCredential){
+						dockerImageBackend.push()
+					}
+				}
+			}
+		}
+	}
+}
